@@ -1,16 +1,15 @@
 import { DollarOutlined, VideoCameraOutlined } from '@ant-design/icons'
-import { Button, Flex } from 'antd'
-import Title from 'antd/es/typography/Title'
+import { Button } from 'antd'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <Title level={1}>IMDB - Crypto Currency Project</Title>
-      <Flex gap="small">
-        <Link href="/imdb">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-24">
+      <h1 className="text-4xl font-bold">Movies - Crypto Currency Project</h1>
+      <div className="flex gap-4">
+        <Link href="/movies">
           <Button size="large" type="primary" icon={<VideoCameraOutlined />}>
-            IMDB
+            Movies
           </Button>
         </Link>
         <Link href="/crypto">
@@ -18,7 +17,7 @@ export default function Home() {
             Crypto
           </Button>
         </Link>
-      </Flex>
+      </div>
     </main>
   )
 }
