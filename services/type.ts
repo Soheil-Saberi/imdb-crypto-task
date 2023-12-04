@@ -1,8 +1,13 @@
-export type ServerResponseType<T extends string, U> = {
+export type MoviesServerResponseType<T extends string, U> = {
   [key in T as `${key}`]: U
 } & {
   totalResults: string
   Response: 'True' | 'False'
+}
+
+export type CryptoServerResponseType<T> = {
+  data: T
+  timestamp: number
 }
 
 export type MovieType = 'movie' | 'series' | 'episode'
@@ -44,4 +49,18 @@ export interface MovieDetails {
   Production: string
   Website: string
   Response: 'True' | 'False'
+}
+
+export type Crypto = {
+  id: string
+  rank: string
+  symbol: string
+  name: string
+  supply: string
+  maxSupply: string | null
+  marketCapUsd: string
+  volumeUsd24Hr: string
+  priceUsd: string
+  changePercent24Hr: string
+  vwap24Hr: string
 }

@@ -18,32 +18,6 @@ export async function fetchJson<JSON = unknown>(
   })
 }
 
-export const initPostRequest = (
-  body: object | FormData = {},
-  authorization: object = {},
-  method: string = 'POST',
-) => {
-  return {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...authorization,
-    },
-    body: typeof body === 'object' ? JSON.stringify(body) : body,
-  }
-}
-
-export const initGetRequest = (authorization: object = {}) => {
-  return {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...authorization,
-    },
-  }
-}
-
 export class FetchError extends Error {
   response: Response
   data: {

@@ -3,15 +3,15 @@ import { useQuery, UseQueryResult } from 'react-query'
 import { movieUrl } from '@/lib/endpoints'
 import { fetchJson } from '@/lib/fetch-json'
 
-import { Movie, MovieDetails, ServerResponseType } from './type'
+import { Movie, MovieDetails, MoviesServerResponseType } from './type'
 
 export const useGetMoviesList = (
   page = 1,
-): UseQueryResult<ServerResponseType<'Search', Movie[]>> => {
+): UseQueryResult<MoviesServerResponseType<'Search', Movie[]>> => {
   return useQuery(
     ['movies', page],
     async () =>
-      await fetchJson<ServerResponseType<'Search', Movie[]>>(
+      await fetchJson<MoviesServerResponseType<'Search', Movie[]>>(
         movieUrl(
           `/?apikey=${process.env.NEXT_PUBLIC_MOVIES_API_KEY}&s=all&page=${page}`,
         ),
