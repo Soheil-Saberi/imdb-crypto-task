@@ -24,8 +24,8 @@ export default function Movies() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Movies List</h2>
+      <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:gap-0">
+        <h2 className="text-lg font-bold md:text-2xl">Movies List</h2>
         <SearchMovies />
       </div>
       {isFetchingMovies ? (

@@ -40,7 +40,9 @@ export default function Crypto() {
 
   return (
     <>
-      <h2 className="text-2xl font-bold">Crypto Currency</h2>
+      <h2 className="self-center text-lg font-bold md:self-start md:text-2xl">
+        Crypto Currency
+      </h2>
       <div className="flex flex-col gap-2">
         {isFetchingCryptoList ? (
           <LoadingList />

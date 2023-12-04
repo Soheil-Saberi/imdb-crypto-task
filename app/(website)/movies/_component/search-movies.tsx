@@ -29,11 +29,11 @@ const SearchMovies = () => {
   }
 
   return (
-    <div className=" relative">
+    <div className="relative z-40">
       <Search
         enterButton
         onBlur={() => setIsOpenSearchBox(false)}
-        style={{ width: 350 }}
+        className=" w-full md:w-[350px]"
         placeholder="Search ..."
         onSearch={handleSearch}
       />
