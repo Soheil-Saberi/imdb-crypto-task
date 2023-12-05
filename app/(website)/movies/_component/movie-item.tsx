@@ -1,3 +1,4 @@
+import { HeartOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,9 +11,19 @@ interface MovieItemProps {
   title: string
   year: string
   type: MovieType
+  favoriteHandler: () => void
+  isFavorite: boolean
 }
 
-const MovieItem = ({ id, poster, title, year, type }: MovieItemProps) => {
+const MovieItem = ({
+  id,
+  poster,
+  title,
+  year,
+  type,
+  favoriteHandler,
+  isFavorite = false,
+}: MovieItemProps) => {
   return (
     <div
       id={id}
@@ -32,11 +43,20 @@ const MovieItem = ({ id, poster, title, year, type }: MovieItemProps) => {
           </h5>
         </div>
       </div>
-      <Link href={`/movies/${id}`}>
-        <Button size="large" type="link">
-          See Details
+      <div className="flex flex-col items-center gap-2">
+        <Link href={`/movies/${id}`}>
+          <Button size="large" type="link">
+            See Details
+          </Button>
+        </Link>
+        <Button
+          onClick={favoriteHandler}
+          type={isFavorite ? 'primary' : 'default'}
+          icon={<HeartOutlined />}
+        >
+          {isFavorite ? 'Remove from Favorite' : 'Add to Favorites'}
         </Button>
-      </Link>
+      </div>
     </div>
   )
 }

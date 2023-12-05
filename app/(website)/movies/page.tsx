@@ -1,18 +1,31 @@
 'use client'
 
-import { Pagination } from 'antd'
-import { useState } from 'react'
+import { HeartOutlined } from '@ant-design/icons'
+import { Button, Pagination } from 'antd'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import EmptyList from '@/components/empty-list'
 import ErrorList from '@/components/error-list'
 import LoadingList from '@/components/loading-list'
+import { toggleFavorite } from '@/lib/utils'
 import { useGetMoviesList } from '@/services/movies'
+import { Movie } from '@/services/type'
 
 import MovieItem from './_component/movie-item'
 import SearchMovies from './_component/search-movies'
 
 export default function Movies() {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([])
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favoriteMovies')
+    if (storedFavorites) {
+      const parsedFavorites: Movie[] = JSON.parse(storedFavorites)
+      setFavoriteMovies(parsedFavorites)
+    }
+  }, [])
 
   const {
     data: movies,
@@ -26,7 +39,12 @@ export default function Movies() {
     <>
       <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:gap-0">
         <h2 className="text-lg font-bold md:text-2xl">Movies List</h2>
-        <SearchMovies />
+        <div className="flex gap-2">
+          <Link href="/movies/favorite">
+            <Button icon={<HeartOutlined />}></Button>
+          </Link>
+          <SearchMovies />
+        </div>
       </div>
       {isFetchingMovies ? (
         <LoadingList />
@@ -43,11 +61,17 @@ export default function Movies() {
                 title={item.Title}
                 year={item.Year}
                 type={item.Type}
+                favoriteHandler={() =>
+                  toggleFavorite(item, favoriteMovies, setFavoriteMovies)
+                }
+                isFavorite={favoriteMovies.some(
+                  (favMovie) => favMovie.imdbID === item.imdbID,
+                )}
               />
             ))}
           </div>
           <Pagination
-            className="w-fit self-center"
+            className="self-center"
             current={currentPage}
             total={parseInt(movies?.totalResults!)}
             showSizeChanger={false}
